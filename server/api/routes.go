@@ -129,6 +129,8 @@ func SetupRoutes(db *gorm.DB) *echo.Echo {
 		assets.DELETE("/:id", AssetDeleteEndpoint)
 		assets.GET("/:id", AssetGetEndpoint)
 		assets.GET("/:id/attributes", AssetGetAttributeEndpoint)
+		assets.GET("/monitor/:id", MonitorEndpoint)
+
 		assets.POST("/:id/change-owner", Admin(AssetChangeOwnerEndpoint))
 	}
 
