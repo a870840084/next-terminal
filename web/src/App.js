@@ -174,7 +174,6 @@ class App extends Component {
             <Switch>
                 <Route path="/access" component={Access}/>
                 <Route path="/term" component={Term}/>
-                <Route path="/monitor" component={StatusMonitor}></Route>
                 <Route path="/login"><Login updateUser={this.updateUser}/></Route>
 
                 <Route path="/">
@@ -353,6 +352,7 @@ class App extends Component {
                             <Route path="/setting" component={Setting}/>
                             <Route path="/job" component={Job}/>
                             <Route path="/access-security" component={Security}/>
+                            <Route path="/monitor/:id" component={StatusMonitor}/>
 
                             <Footer style={{textAlign: 'center'}}>
                                 Next Terminal ©2021 dushixiang Version:{this.state.package['version']}

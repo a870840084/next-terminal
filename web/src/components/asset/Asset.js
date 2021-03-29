@@ -366,14 +366,14 @@ class Asset extends Component {
     monitor = async (record) => {
         const id = record['id'];
         var protocol  = record["protocol"];
-        var name = record['name'];
+        const name = record["name"];
         message.loading({content: '正在检测资产是否在线...', key: id});
         let result = await request.post(`/assets/${id}/tcping`);
         if (result.code === 1) {
             if (result.data === true) {
                 message.success({content: '检测完成，您访问的资产在线，即将打开窗口进行访问。', key: id, duration: 3});
                 if (protocol === 'ssh') {
-                    window.open(`#/monitor/?id=${id}`);
+                    window.open(`/#/monitor/${id}/?name=${name}`);
                 } else {
                     message.warn('暂时仅支持监控ssh协议的资产', 10);
                 }
