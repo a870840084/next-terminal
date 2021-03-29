@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './Monitor.css';
-import axios from 'axios'
 import ReactEcharts from 'echarts-for-react'
-import moment from 'moment'
 
 
 // Demo
@@ -12,87 +10,76 @@ class StatusMonitor extends Component {
         option: {}
     }
 
-    handleTest = () => {
-        const depthSeq: any = []
-        const timeSeq: any = []
+    componentWillMount() {
+
+    }
+
+    render() {
         const option = {
-            grid: {
-                bottom: 80,
-                top: 40,
-                left: 140
+            title: {
+                text: 'CPU使用率'
             },
             tooltip: {
-                trigger: 'axis',
+                trigger: 'axis'
             },
-            xAxis: [
-                {
-                    type: 'category',
-                    boundaryGap: false,
-                    axisLine: { onZero: true },
-                    axisLabel: {
-                        align: 'left'
-                    },
-                    data: [1,2,3,5,6,7,8,9]
+            legend: {
+                data: ['用户', '系统', '总量']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
                 }
-            ],
-            yAxis: [
-                {
-                    name: '淹没水深(m)',
-                    type: 'value',
-                    scale: 0.1,
-                }
-            ],
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            },
+            yAxis: {
+                type: 'value',
+                max:100
+            },
             series: [
                 {
-                    name: '淹没水深',
+                    name: '用户',
                     type: 'line',
-                    animation: false,
-                    areaStyle: {
-                        color: '#fff'
-                    },
-                    lineStyle: {
-                        width: 1
-                    },
-                    markPoint: {
-                        symbol: 'pin',
-                        data: [
-                            {
-                                name: '最大值',
-                                type: 'max'
-                            },
-                            {
-                                name: '初始值',
-                                valueIndex: 0,
-                                type: 'min'
-                            }
-                        ]
-                    },
-                    data: [1,23,6,7,8,9]
+                    stack: '用户',
+                    data: [20, 32, 1, 34, 9, 23, 21]
+                },
+                {
+                    name: '系统',
+                    type: 'line',
+                    stack: '系统',
+                    data: [40, 10, 20, 40, 30, 33, 32]
+                },
+                {
+                    name: '总量',
+                    type: 'line',
+                    stack: '总量',
+                    data: [60, 32, 21, 74, 39, 56, 53]
                 }
-            ]
-        }
-        this.setState({
-            'option': option
-        })
-    }
-    render() {
-        return (
-            <div className="Status">
-                <button onClick={this.handleTest}>
-                    测试
-                </button>
-                <ReactEcharts
-                    style={{ height: 350, width: 350 }}
-                    notMerge={true}
-                    lazyUpdate={true}
-                    option={this.state.option} />
 
-                <ReactEcharts
-                    style={{ height: 350, width: 350 }}
-                    notMerge={true}
-                    lazyUpdate={true}
-                    option={this.state.option} />
-            </div>
+            ]
+        };
+        return (
+            <>
+                <div>
+                    基本信息
+                </div>
+                <div className="Status">
+                    <ReactEcharts
+                        style={{height: 300, width: 1200}}
+                        notMerge={true}
+                        lazyUpdate={true}
+                        option={option}/>
+                </div>
+            </>
         );
     }
 }
